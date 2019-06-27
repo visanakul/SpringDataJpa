@@ -1,0 +1,83 @@
+<project
+	xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.spring.jpa</groupId>
+	<artifactId>SpringJPADemo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<properties>
+
+		<!-- Java 1.8 version -->
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<maven.compiler.source>1.8</maven.compiler.source>
+
+		<!-- Lombok version -->
+		<lombok.version>1.18.8</lombok.version>
+
+		<!-- SPRING & HIBERNATE / JPA -->
+		<spring.version>4.0.0.RELEASE</spring.version>
+		<spring.data.jpa.version>1.7.1.RELEASE</spring.data.jpa.version>
+		<hibernate.version>4.1.9.Final</hibernate.version>
+
+		<!-- Log4j version -->
+		<log.version>1.2.17</log.version>
+		
+		<!-- Oracle version -->
+		<oracle.version>11.2.0.2</oracle.version>
+		
+		<!-- JUnit version -->
+		<junit.version>4.12</junit.version>
+	</properties>
+	<dependencies>
+
+		<!-- lombok -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- Oracle6 DB -->
+		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc6</artifactId>
+			<version>${oracle.version}</version>
+		</dependency>
+		
+		<!-- Spring-Data-JPA -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring.data.jpa.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${hibernate.version}</version>
+		</dependency>
+
+		<!-- LOG -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log.version}</version>
+		</dependency>
+		
+		<!-- Junit and Spring test -->
+		<dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        
+	</dependencies>
+</project>
