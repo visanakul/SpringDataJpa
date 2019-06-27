@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -16,6 +15,7 @@ import com.spring.jpa.exception.NullListException;
 import com.spring.jpa.exception.UserSaveException;
 import com.spring.jpa.model.UserModel;
 import com.spring.jpa.repository.UserRepository;
+import com.spring.jpa.util.DeepCopyBeanUtils;
 
 @Service
 @Transactional
@@ -39,14 +39,16 @@ public class UserServiceImpl implements UserService{
 		if(entities.size()==0){
 			throw new EmptyListException("List is empty...");
 		}
-		List<UserModel> models=new ArrayList<>(entities.size());
-		for(UserEntity entity:entities){
-			UserModel model=new UserModel();
-			BeanUtils.copyProperties(entity, model);
-			models.add(model);
+		List<UserModel> userModels=new ArrayList<>(entities.size());
+		for(UserEntity userEntity:entities){
+			UserModel userModel=new UserModel();
+			DeepCopyBeanUtils.copyBean(userEntity, userModel);
+			
+			LOGGER.info("***"+userModel+"***");
+			userModels.add(userModel);
 		}
 		LOGGER.info("getAllUsers end");
-		return models;
+		return userModels;
 	}
 	@Override
 	public List<UserModel> getAllUsersByName(String searchName) {
@@ -58,21 +60,25 @@ public class UserServiceImpl implements UserService{
 		if(entities.size()==0){
 			throw new EmptyListException("List is empty...");
 		}
-		List<UserModel> models=new ArrayList<>(entities.size());
-		for(UserEntity entity:entities){
-			UserModel model=new UserModel();
-			BeanUtils.copyProperties(entity, model);
-			models.add(model);
+		List<UserModel> userModels=new ArrayList<>(entities.size());
+		for(UserEntity userEntity:entities){
+			UserModel userModel=new UserModel();
+			DeepCopyBeanUtils.copyBean(userEntity, userModel);
+			
+			LOGGER.info("***"+userModel+"***");
+			userModels.add(userModel);
 		}
 		LOGGER.info("getAllUsersByName end");
-		return models;
+		return userModels;
 	}
 	@Override
-	public Integer saveUser(UserModel user) {
+	public Integer saveUser(UserModel userModel) {
 		LOGGER.info("saveUser start");
-		LOGGER.debug("User : "+user);
+		LOGGER.debug("User : "+userModel);
+		
 		UserEntity userEntity=new UserEntity();
-		BeanUtils.copyProperties(user, userEntity);
+		DeepCopyBeanUtils.copyBean( userModel,userEntity);
+		
 		userEntity =userRepository.save(userEntity);
 		if(userEntity.getUserId()==null){
 			throw new UserSaveException("Record not saved...");
