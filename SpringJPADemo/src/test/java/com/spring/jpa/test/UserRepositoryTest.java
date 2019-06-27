@@ -14,7 +14,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.spring.jpa.entity.StateEntity;
 import com.spring.jpa.entity.UserEntity;
+import com.spring.jpa.repository.StateRepository;
 import com.spring.jpa.repository.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -24,6 +26,9 @@ public class UserRepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private StateRepository stateRepository;
+	
 	@Test
 	@Ignore
 	public void test1() {
@@ -33,12 +38,14 @@ public class UserRepositoryTest {
 	@Test
 	@Ignore
 	public void save_test() {
-		UserEntity entity = new UserEntity();
-		entity.setName("user2");
-		entity.setPassword("pass2");
-		entity.setMobile("1234123412");
-		entity = userRepository.save(entity);
-		assertNotNull("Entity not saved", entity.getUserId());
+		UserEntity userEntity = new UserEntity();
+		userEntity.setName("user2");
+		userEntity.setPassword("pass2");
+		userEntity.setMobile("1234123412");
+		StateEntity stateEntity=stateRepository.findByStateId(2);
+		userEntity.setState(stateEntity);
+		userEntity = userRepository.save(userEntity);
+		assertNotNull("Entity not saved", userEntity.getUserId());
 	}
 
 	@Test
@@ -58,7 +65,6 @@ public class UserRepositoryTest {
 	}
 
 	@Test
-	@Ignore
 	public void findSinglePage_test() {
 		Pageable pageable=new PageRequest(0, 2);
 		//PageRequest request = PageRequest.of(0, 2);
@@ -71,6 +77,7 @@ public class UserRepositoryTest {
 	}
 	
 	@Test
+	@Ignore
 	public void findAllPage_test() {
 		long total_records=userRepository.count();
 		int page_size=2;

@@ -2,7 +2,7 @@ package com.spring.jpa.demo;
 
 import org.apache.log4j.Logger;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import com.spring.jpa.model.User;
+import com.spring.jpa.model.UserModel;
 import com.spring.jpa.service.UserService;
 
 public class SpringJPADemo {
@@ -23,7 +23,7 @@ public class SpringJPADemo {
 			LOGGER.debug("Context : " + context);
 
 			UserService userService = context.getBean(UserService.class);
-			User user = new User();
+			UserModel user = new UserModel();
 			user.setMobile("1234567892");
 			user.setName("user2");
 			user.setPassword("pass2");

@@ -14,7 +14,7 @@ import com.spring.jpa.entity.UserEntity;
 import com.spring.jpa.exception.EmptyListException;
 import com.spring.jpa.exception.NullListException;
 import com.spring.jpa.exception.UserSaveException;
-import com.spring.jpa.model.User;
+import com.spring.jpa.model.UserModel;
 import com.spring.jpa.repository.UserRepository;
 
 @Service
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService{
 	private UserRepository userRepository;
 	
 	@Override
-	public List<User> getAllUsers() {
+	public List<UserModel> getAllUsers() {
 		LOGGER.info("getAllUsers start");
 		List<UserEntity> entities=userRepository.findAll(sortByIdDesc());
 		if(entities==null){
@@ -39,9 +39,9 @@ public class UserServiceImpl implements UserService{
 		if(entities.size()==0){
 			throw new EmptyListException("List is empty...");
 		}
-		List<User> models=new ArrayList<>(entities.size());
+		List<UserModel> models=new ArrayList<>(entities.size());
 		for(UserEntity entity:entities){
-			User model=new User();
+			UserModel model=new UserModel();
 			BeanUtils.copyProperties(entity, model);
 			models.add(model);
 		}
@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService{
 		return models;
 	}
 	@Override
-	public List<User> getAllUsersByName(String searchName) {
+	public List<UserModel> getAllUsersByName(String searchName) {
 		LOGGER.info("getAllUsersByName start");
 		List<UserEntity> entities=userRepository.findByNameContainingIgnoreCase(searchName);
 		if(entities==null){
@@ -58,9 +58,9 @@ public class UserServiceImpl implements UserService{
 		if(entities.size()==0){
 			throw new EmptyListException("List is empty...");
 		}
-		List<User> models=new ArrayList<>(entities.size());
+		List<UserModel> models=new ArrayList<>(entities.size());
 		for(UserEntity entity:entities){
-			User model=new User();
+			UserModel model=new UserModel();
 			BeanUtils.copyProperties(entity, model);
 			models.add(model);
 		}
@@ -68,7 +68,7 @@ public class UserServiceImpl implements UserService{
 		return models;
 	}
 	@Override
-	public Integer saveUser(User user) {
+	public Integer saveUser(UserModel user) {
 		LOGGER.info("saveUser start");
 		LOGGER.debug("User : "+user);
 		UserEntity userEntity=new UserEntity();

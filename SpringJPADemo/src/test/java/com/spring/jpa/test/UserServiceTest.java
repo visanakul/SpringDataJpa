@@ -13,7 +13,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.spring.jpa.exception.EmptyListException;
-import com.spring.jpa.model.User;
+import com.spring.jpa.model.UserModel;
 import com.spring.jpa.service.UserService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -26,14 +26,14 @@ public class UserServiceTest {
 	@Test(expected = EmptyListException.class)
 	@Ignore
 	public void getAllUser1_Test() {
-		List<User> userList = userService.getAllUsers();
+		List<UserModel> userList = userService.getAllUsers();
 		assertFalse("Users not available", userList.isEmpty());
 	}
 
 	@Test
 	@Ignore
 	public void saveUser_Test() {
-		User user = new User();
+		UserModel user = new UserModel();
 		user.setName("user1");
 		user.setPassword("pass1");
 		user.setMobile("1234567890");
@@ -43,7 +43,7 @@ public class UserServiceTest {
 	
 	@Test
 	public void showAllUser_Test() {
-		List<User> userList = userService.getAllUsers();
+		List<UserModel> userList = userService.getAllUsers();
 		System.out.println("*****Sorted by Id desc : "+userList+"*****************");
 		assertNotNull("List Object not available", userList);
 		assertNotEquals("Records not available", 0, userList.size());
@@ -52,7 +52,7 @@ public class UserServiceTest {
 	@Test
 	@Ignore
 	public void showAllUserByName_Test() {
-		List<User> userList = userService.getAllUsersByName("user1");
+		List<UserModel> userList = userService.getAllUsersByName("user1");
 		assertNotNull("List Object not available", userList);
 		assertNotEquals("Records not available", 0, userList.size());
 	}
@@ -60,7 +60,7 @@ public class UserServiceTest {
 	@Test
 	@Ignore
 	public void findAllUserByName_Test() {
-		List<User> userList = userService.getAllUsersByName("USER2");
+		List<UserModel> userList = userService.getAllUsersByName("USER2");
 		assertNotNull("List Object not available", userList);
 		assertNotEquals("Records not available", 0, userList.size());
 	}
