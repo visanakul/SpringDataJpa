@@ -27,7 +27,7 @@
 		<oracle.version>11.2.0.2</oracle.version>
 		
 		<!-- JUnit version -->
-		<junit.version>4.12</junit.version>
+		<junit.version>4.13.1</junit.version>
 	</properties>
 	<dependencies>
 
